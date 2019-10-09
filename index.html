@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+	<head>
+		<title>Démineur en Javascript</title>
+		<meta charset="utf-8">
+		<link rel="stylesheet" type="text/css" href="css/reset.css">
+		<link rel="stylesheet" type="text/css" href="css/styles.css">
+	</head>
+
+	<body>
+		<main id="config">
+			<h1>Démineur par Harmant Mathieu</h1>
+			<label>Nombres de lignes :</label>
+			<input type="number" name="lignes" id="lignes">
+			<label>Nombres de colonnes :</label>
+			<input type="number" name="colonnes" id="colonnes">
+			<label>Nombres de mines :</label>
+			<input type="number" name="nb_mines" id="mines"><br>
+			<button onclick="validation_config()" id="créer">Créer</button>
+			<button onclick="restart()" id="recommencer">Recommencer</button>
+			<h2 id="etat_game">Commencez par créer une grille pour jouer !</h2>
+		</main>
+		<script src="js/jeu.js"></script> 
+	</body>
+</html>
