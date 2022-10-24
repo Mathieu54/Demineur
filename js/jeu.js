@@ -27,7 +27,7 @@ function validation_config() {
 	lignes = document.getElementById("lignes").value;
 	colonnes = document.getElementById("colonnes").value;  //On recupereres es valeurs
 	mines = document.getElementById("mines").value;
-	if(lignes == "" || colonnes == "" || mines == "") { //Si les valeurs sont vides alors erreur
+	if(lignes === "" || colonnes === "" || mines === "") { //Si les valeurs sont vides alors erreur
 		alert("[Erreur] Lignes, Colonnes ou Mines ne peuvent pas être vide !");
 		return false;
 	} else { // sinon
@@ -43,7 +43,7 @@ function validation_config() {
 				alert("[Erreur] Vous avez renseignées 0 mines !");
 				return false;
       }
-        else if(mines == total_case) { //ou sinon pour terminer les mines sont = aux total_case alors erreur
+        else if(mines === total_case) { //ou sinon pour terminer les mines sont = aux total_case alors erreur
         alert("[Erreur] Il y a " + total_case + " cases et vous voulez mettre " + mines + " mines !");
         return false;
 			} else { //sinon 
@@ -126,10 +126,10 @@ function initialisation_game() {
   //While tres important ici pour placer les mines aléatoirement
   while (placement_mines < mines) { //Tant que la variable placement_mines est inférieur aux mines que l'utilisateur a renseigné.
 
-    var colonne = Math.floor(Math.random() * colonnes); //On random effectue un random sur le total de colonnes et de lignes
-    var ligne = Math.floor(Math.random() * lignes); //On stocke dans les variables 
+    colonne = Math.floor(Math.random() * colonnes); //On random effectue un random sur le total de colonnes et de lignes
+    ligne = Math.floor(Math.random() * lignes); //On stocke dans les variables
 
-    if (tableau[ligne][colonne] != 'mine') { //Si dans la var tableau[numero de ligne random][numero de colonne random] il n'y a pas de texte mine
+    if (tableau[ligne][colonne] !== 'mine') { //Si dans la var tableau[numero de ligne random][numero de colonne random] il n'y a pas de texte mine
 
       tableau[ligne][colonne] = 'mine'; //Alors on l'ajoute
       placement_mines++; //Puis on incremente placement_mines.
@@ -141,16 +141,16 @@ function initialisation_game() {
   //Ici cette section permet de verifer le nombre qu'il a aux alentours et ainsi d'incrementer le nombre de chiffre 
   for (let colonne = 0; colonne < colonnes; colonne++) {
     for (let ligne = 0; ligne < lignes; ligne++) {
-      if (verif(ligne, colonne) != 'mine') {
+      if (verif(ligne, colonne) !== 'mine') {
         //Ici on a tous les cas possibles pour verifer les mines au alentours
-        tableau[ligne][colonne] = ((verif(ligne + 1, colonne) == 'mine') || 0) + 
-        ((verif(ligne + 1, colonne - 1) == 'mine') || 0) + 
-        ((verif(ligne + 1, colonne + 1) == 'mine') || 0) + 
-        ((verif(ligne - 1, colonne) == 'mine') || 0) +
-        ((verif(ligne - 1, colonne - 1) == 'mine') || 0) +
-        ((verif(ligne - 1, colonne + 1) == 'mine') || 0) +
-        ((verif(ligne, colonne - 1) == 'mine') || 0) +
-        ((verif(ligne, colonne + 1) == 'mine') || 0);
+        tableau[ligne][colonne] = ((verif(ligne + 1, colonne) === 'mine') || 0) +
+        ((verif(ligne + 1, colonne - 1) === 'mine') || 0) +
+        ((verif(ligne + 1, colonne + 1) === 'mine') || 0) +
+        ((verif(ligne - 1, colonne) === 'mine') || 0) +
+        ((verif(ligne - 1, colonne - 1) === 'mine') || 0) +
+        ((verif(ligne - 1, colonne + 1) === 'mine') || 0) +
+        ((verif(ligne, colonne - 1) === 'mine') || 0) +
+        ((verif(ligne, colonne + 1) === 'mine') || 0);
       }
     }
   }
@@ -167,7 +167,7 @@ function verif(ligne, colonne) {
 function bombe_desamorce() {
   for (var ligne = 0; ligne < lignes; ligne++) {
     for (var colonne = 0;  colonne < colonnes; colonne++) { //On get les lignes et colonnes et on verif si dans le tableau on a une mine si oui on remplace l'image
-      if(tableau[ligne][colonne] == "mine") {
+      if(tableau[ligne][colonne] === "mine") {
         cases[ligne][colonne].src = 'images/mine_desamorce.png';
       }
     }
@@ -180,8 +180,8 @@ function clique_jeu(event) {
   let id = source.id;
   let ligne = Math.floor(id / colonnes);
   let colonne = id % colonnes;
-  if(jouable == true) { //Si le jeu est toujours jouable alors on rentre ici
-    if (event.which == 3) { //Si il clique droit
+  if(jouable === true) { //Si le jeu est toujours jouable alors on rentre ici
+    if (event.which === 3) { //Si il clique droit
       switch (images[ligne][colonne]) {
         case 'non_decouvert': //Et que l'image est non decouvert
           cases[ligne][colonne].src = 'images/drapeau.png'; //On remplace img par le drapeau
@@ -205,14 +205,14 @@ function clique_jeu(event) {
   //Informe l'utilisateur le nb de mine qu'il lui reste
   etat_game.innerHTML = 'Mines restantes : ' + mines_restantes;
   
-  if (event.which == 1 && images[ligne][colonne] != 'drapeau') {
-    if (tableau[ligne][colonne] == 'mine') {
+  if (event.which === 1 && images[ligne][colonne] !== 'drapeau') {
+    if (tableau[ligne][colonne] === 'mine') {
       for (let ligne = 0; ligne < lignes; ligne++)
         for (let colonne = 0; colonne < colonnes; colonne++) {
-          if (tableau[ligne][colonne] == 'mine') {
+          if (tableau[ligne][colonne] === 'mine') {
             cases[ligne][colonne].src = 'images/mine.png';
           }
-          if (tableau[ligne][colonne] != 'mine' && images[ligne][colonne] == 'drapeau') {
+          if (tableau[ligne][colonne] !== 'mine' && images[ligne][colonne] === 'drapeau') {
             cases[ligne][colonne].src = 'images/erreur_pas_de_mine_ici.png';
           }
         }
@@ -223,10 +223,10 @@ function clique_jeu(event) {
       document.getElementById("recommencer").disabled = false;
       audio_gameover.play();
     } else
-    if (images[ligne][colonne] == 'non_decouvert') reveler_case(ligne, colonne);
+    if (images[ligne][colonne] === 'non_decouvert') reveler_case(ligne, colonne);
   }
  
-    if (mines_reveles == lignes * colonnes - mines) {
+    if (mines_reveles === lignes * colonnes - mines) {
       score = nb_case_explore;
       if((meilleur_score_case == null) || (meilleur_score_mine == null)) {
         meilleur_score_case = score;
@@ -255,36 +255,36 @@ function reveler_case(ligne, colonne) {
 
   cases[ligne][colonne].src = 'images/' + tableau[ligne][colonne] + '.png'; //On get les chiffres
 
-  if (tableau[ligne][colonne] != 'mine' && images[ligne][colonne] == 'non_decouvert') {
+  if (tableau[ligne][colonne] !== 'mine' && images[ligne][colonne] === 'non_decouvert') {
     mines_reveles++; //On incremente alors
   }
 
   images[ligne][colonne] = tableau[ligne][colonne];
  
-  if (tableau[ligne][colonne] == 0) {
+  if (tableau[ligne][colonne] === 0) {
 
-    if (colonne > 0 && images[ligne][colonne - 1] == 'non_decouvert') {
+    if (colonne > 0 && images[ligne][colonne - 1] === 'non_decouvert') {
       reveler_case(ligne, colonne - 1);
     }
-    if (colonne < (colonnes - 1) && images[ligne][+colonne + 1] == 'non_decouvert') {
+    if (colonne < (colonnes - 1) && images[ligne][+colonne + 1] === 'non_decouvert') {
       reveler_case(ligne, +colonne + 1);
     }
-    if (ligne < (lignes - 1) && images[+ligne + 1][colonne] == 'non_decouvert') {
+    if (ligne < (lignes - 1) && images[+ligne + 1][colonne] === 'non_decouvert') {
       reveler_case(+ligne + 1, colonne);
     }
-    if (ligne > 0 && images[ligne - 1][colonne] == 'non_decouvert'){
+    if (ligne > 0 && images[ligne - 1][colonne] === 'non_decouvert'){
       reveler_case(ligne - 1, colonne);
     }
-    if (colonne > 0 && ligne > 0 && images[ligne - 1][colonne - 1] == 'non_decouvert'){
+    if (colonne > 0 && ligne > 0 && images[ligne - 1][colonne - 1] === 'non_decouvert'){
       reveler_case(ligne - 1, colonne - 1);
     }
-    if (colonne > 0 && ligne < (lignes - 1) && images[+ligne + 1][colonne - 1] == 'non_decouvert') {
+    if (colonne > 0 && ligne < (lignes - 1) && images[+ligne + 1][colonne - 1] === 'non_decouvert') {
       reveler_case(+ligne + 1, colonne - 1);
     }
-    if (colonne < (colonnes - 1) && ligne < (lignes - 1) && images[+ligne + 1][+colonne + 1] == 'non_decouvert'){
+    if (colonne < (colonnes - 1) && ligne < (lignes - 1) && images[+ligne + 1][+colonne + 1] === 'non_decouvert'){
       reveler_case(+ligne + 1, +colonne + 1);
     }
-    if (colonne < (colonnes - 1) && ligne > 0 && images[ligne - 1][+colonne + 1] == 'non_decouvert') {
+    if (colonne < (colonnes - 1) && ligne > 0 && images[ligne - 1][+colonne + 1] === 'non_decouvert') {
       reveler_case(ligne - 1, +colonne + 1);
     }
   }
